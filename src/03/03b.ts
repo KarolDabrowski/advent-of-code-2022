@@ -42,5 +42,3 @@ function intersection(array1: string[], array2: string[]): string[] {
   const intersect = array1.filter(value => array2.includes(value));
   return [...new Set(intersect)];
 }
-
-
