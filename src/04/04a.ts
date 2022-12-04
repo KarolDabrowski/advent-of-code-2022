@@ -32,20 +32,6 @@ async function loadInputData(): Promise<void> {
       count++;
       continue;
     }
-
-    //a ****----
-    //b --****--
-    if (+a1 <= +b1 && +b1 <= +a2) {
-      count++;
-      continue;
-    }
-
-    //a --****--
-    //b ****----
-    if (+a1 >= +b1 && +a1 <= +b2) {
-      count++;
-      continue;
-    }
   }
 }
 
