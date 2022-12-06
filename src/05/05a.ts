@@ -46,7 +46,7 @@ async function loadInputData(): Promise<void> {
   // Note: we use the crlfDelay option to recognize all instances of CR LF
   // ('\r\n') in input.txt as a single line break.
 
-  let skip = 10;
+  let skip = 5;
 
   for await (const line of rl) {
     if (skip) {
@@ -57,15 +57,17 @@ async function loadInputData(): Promise<void> {
     // => ['move', '1', 'from', '2', 'to', '1']
     //        0     1      2     3     4    5
     const commands = line.split(' ');
-    const amount = +commands[1];
+    let loops = +commands[1];
     const source = +commands[3] - 1;
     const dest = +commands[5] - 1;
 
-    const crates = stacks[source] ? stacks[source].splice(stacks[source].length - amount, stacks[source].length) : null;
-    if (!stacks[dest]) { stacks[dest] = []; }
+    while (loops--) {
+      const crate = stacks[source] ? stacks[source].pop() : null;
+      if (!stacks[dest]) { stacks[dest] = []; }
 
-    if (crates) {
-      stacks[dest] = [...stacks[dest], ...crates];
+      if (crate) {
+        stacks[dest].push(crate);
+      }
     }
   }
 }
